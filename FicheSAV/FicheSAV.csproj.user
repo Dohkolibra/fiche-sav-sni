@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PublishUrlHistory>publish\|ftp://itdevstudio.com/maj/fichesavsni/|http://itdevstudio.com/maj/fichesavsni/</PublishUrlHistory>
+    <InstallUrlHistory>http://itdevstudio.com/|http://itdevstudio.com/maj/fichesavsni/</InstallUrlHistory>
+    <SupportUrlHistory />
+    <UpdateUrlHistory>http://itdevstudio.com/maj/fichesavsni/</UpdateUrlHistory>
+    <BootstrapperUrlHistory />
+    <ErrorReportUrlHistory />
+    <FallbackCulture>fr-FR</FallbackCulture>
+    <VerifyUploadedFiles>false</VerifyUploadedFiles>
+  </PropertyGroup>
+</Project>

@@ -11,8 +11,33 @@
     <RootNamespace>FicheSAV</RootNamespace>
     <AssemblyName>FicheSAV</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <UpdateUrl>http://itdevstudio.com/maj/fichesavsni/</UpdateUrl>
+    <TargetCulture>fr-FR</TargetCulture>
+    <ProductName>FicheSAV</ProductName>
+    <PublisherName>ItDevStudio</PublisherName>
+    <WebPage>publish.htm</WebPage>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -33,13 +58,39 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>786B4D451E7104A6070627555BD139336E36BB80</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>FicheSAV_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Untitled4.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data, Version=6.3.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+    <Reference Include="Fluent, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Fluent.dll</HintPath>
+    </Reference>
+    <Reference Include="Mysql.Data">
+      <HintPath>.\Mysql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,21 +99,98 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="ZedGraph">
-      <HintPath>..\..\..\..\..\Downloads\zedgraph_dll_v515\zedgraph_dll_v5.1.5\ZedGraph.dll</HintPath>
+    <Reference Include="ZedGraph, Version=5.1.5.28844, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\librairie\zedgraph\ZedGraph.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="AProposDe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AProposDe.Designer.cs">
+      <DependentUpon>AProposDe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDeDonnee.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="Materiel.cs" />
+    <Compile Include="FenetrePrincipale.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FenetrePrincipale.Designer.cs">
+      <DependentUpon>FenetrePrincipale.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Fiche.cs" />
+    <Compile Include="Impression.cs" />
+    <Compile Include="mafichesavDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>mafichesavDataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="NouveauType.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+      <DependentUpon>NouveauType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NouvellePriorite.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NouvellePriorite.Designer.cs">
+      <DependentUpon>NouvellePriorite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NouvelOs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NouvelOs.Designer.cs">
+      <DependentUpon>NouvelOs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NouvelleMarque.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NouvelleMarque.Designer.cs">
+      <DependentUpon>NouvelleMarque.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Planning.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Planning.Designer.cs">
+      <DependentUpon>Planning.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="savDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>savDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="VueFiche.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VueFiche.Designer.cs">
+      <DependentUpon>VueFiche.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AProposDe.resx">
+      <DependentUpon>AProposDe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FenetrePrincipale.resx">
+      <DependentUpon>FenetrePrincipale.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NouveauType.resx">
+      <DependentUpon>NouveauType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NouvelleMarque.resx">
+      <DependentUpon>NouvelleMarque.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NouvellePriorite.resx">
+      <DependentUpon>NouvellePriorite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NouvelOs.resx">
+      <DependentUpon>NouvelOs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Planning.resx">
+      <DependentUpon>Planning.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -74,7 +202,22 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="VueFiche.resx">
+      <DependentUpon>VueFiche.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="FicheSAV_TemporaryKey.pfx" />
+    <None Include="mafichesavDataSet1.xsc">
+      <DependentUpon>mafichesavDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="mafichesavDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>mafichesavDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="mafichesavDataSet1.xss">
+      <DependentUpon>mafichesavDataSet1.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -84,6 +227,49 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="savDataSet.xsc">
+      <DependentUpon>savDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="savDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>savDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="savDataSet.xss">
+      <DependentUpon>savDataSet.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 et x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\supprimer.png" />
+    <Content Include="Untitled4.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
