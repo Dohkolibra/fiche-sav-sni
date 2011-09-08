@@ -15,7 +15,6 @@ namespace FicheSAV
     public partial class VueFiche : Form
     {
         public Boolean ficheSelect = false;
-        //BaseDeDonnee bdd = new BaseDeDonnee();
         private string idClient = "0";
         int attente = 0;
         int etat = 1;
@@ -25,7 +24,6 @@ namespace FicheSAV
         MySqlDataAdapter OSDataAdapter;
         DataSet OSDataSet;
         
-
         public VueFiche()
         {
             InitializeComponent();
