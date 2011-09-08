@@ -15,23 +15,30 @@ namespace FicheSAV
     public partial class VueFiche : Form
     {
         public Boolean ficheSelect = false;
-        BaseDeDonnee bdd = new BaseDeDonnee();
+        //BaseDeDonnee bdd = new BaseDeDonnee();
         private string idClient = "0";
         int attente = 0;
         int etat = 1;
         Fiche fiche = null;
         DataGridView d = null;
         DataGridViewRow numRow;
+        MySqlDataAdapter OSDataAdapter;
+        DataSet OSDataSet;
+        
 
         public VueFiche()
         {
             InitializeComponent();
             comboBox2.Hide();
-        }
-
-        private void VueFiche_Load(object sender, EventArgs e)
-        {
-            this.osTableAdapter.Fill(this.savDataSet.os);
+            
+            BaseDeDonnee.Connection();
+            OSDataAdapter = new MySqlDataAdapter("select * from os", BaseDeDonnee.mysql);
+            OSDataSet = new DataSet("os");
+            OSDataAdapter.Fill(OSDataSet, "os");
+            comboBox2.DataSource = OSDataSet.Tables["os"];
+            comboBox2.ValueMember = "nom_os";
+            comboBox2.DisplayMember = "nom_os";
+            BaseDeDonnee.Deconnection();
 
         }
 
@@ -63,13 +70,13 @@ namespace FicheSAV
             comboBox1.SelectedIndex = Int16.Parse(f.typeEnlevement);
             dateTimePicker1.Value = DateTime.Parse(f.reprise);
 
-            bdd.Connection();
-            MySqlCommand mysqlCmd2 = new MySqlCommand("SELECT nom_os FROM os WHERE id_os=" + fiche.materiel.os, bdd.mysql);
+            BaseDeDonnee.Connection();
+            MySqlCommand mysqlCmd2 = new MySqlCommand("SELECT nom_os FROM os WHERE id_os=" + fiche.materiel.os, BaseDeDonnee.mysql);
             MySqlDataReader mysqlReader = mysqlCmd2.ExecuteReader();
             mysqlReader.Read();
             tbOS.Text = mysqlReader.GetString("nom_os");
             mysqlReader.Close();
-            bdd.Deconnection();
+            BaseDeDonnee.Deconnection();
 
 
 
@@ -179,61 +186,65 @@ namespace FicheSAV
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comboBox2.Hide();
-            tbOS.Text = comboBox2.SelectedValue.ToString();
-            tbOS.Show();
+            if (tbOS.Text != "")
+            {
+                comboBox2.Hide();
+                tbOS.Text = comboBox2.SelectedValue.ToString();
+                tbOS.Show();
 
-            bdd.Connection();
+                BaseDeDonnee.Connection();
 
-            String maRequete = "SELECT id_os FROM os WHERE nom_os= @nom";
-            MySqlCommand mysqlCmd2 = new MySqlCommand(maRequete, bdd.mysql);
-            mysqlCmd2.Parameters.Add(new MySqlParameter("@nom", MySqlDbType.String));
-            mysqlCmd2.Parameters["@nom"].Value = comboBox2.SelectedValue.ToString();
-            MySqlDataReader mysqlReader = mysqlCmd2.ExecuteReader();
-            mysqlReader.Read();
-            String idos = mysqlReader.GetString("id_os");
-            mysqlReader.Close();
+                String maRequete = "SELECT * FROM os WHERE nom_os= @nom";
+                MySqlCommand mysqlCmd2 = new MySqlCommand(maRequete, BaseDeDonnee.mysql);
+                mysqlCmd2.Parameters.Add(new MySqlParameter("@nom", MySqlDbType.String));
+                mysqlCmd2.Parameters["@nom"].Value = comboBox2.SelectedValue.ToString();
+                MySqlDataReader mysqlReader = mysqlCmd2.ExecuteReader();
+                mysqlReader.Read();
+                String idos = mysqlReader.GetString("id_os");
+                mysqlReader.Close();
 
-            maRequete ="UPDATE fiche SET os = @idos WHERE idfiche = @idfi";
-            mysqlCmd2 = new MySqlCommand(maRequete, bdd.mysql);
-            mysqlCmd2.Parameters.Add(new MySqlParameter("@idos", MySqlDbType.String));
-            mysqlCmd2.Parameters["@idos"].Value = idos;
-            mysqlCmd2.Parameters.Add(new MySqlParameter("@idfi", MySqlDbType.String));
-            mysqlCmd2.Parameters["@idfi"].Value = num_fiche.Text;
-            mysqlCmd2.ExecuteReader();
-            bdd.Deconnection();
+                maRequete = "UPDATE fiche SET os = @idos WHERE idfiche = @idfi";
+                mysqlCmd2 = new MySqlCommand(maRequete, BaseDeDonnee.mysql);
+                mysqlCmd2.Parameters.Add(new MySqlParameter("@idos", MySqlDbType.String));
+                mysqlCmd2.Parameters["@idos"].Value = idos;
+                mysqlCmd2.Parameters.Add(new MySqlParameter("@idfi", MySqlDbType.String));
+                mysqlCmd2.Parameters["@idfi"].Value = num_fiche.Text;
+                mysqlCmd2.ExecuteReader();
+
+                BaseDeDonnee.Deconnection();
+            }
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            bdd.Connection();
-            MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET enlevement = '" + dateTimePicker1.Value.ToShortDateString().ToString() + "' WHERE idfiche =" + num_fiche.Text, bdd.mysql);
+            BaseDeDonnee.Connection();
+            MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET enlevement = '" + dateTimePicker1.Value.ToShortDateString().ToString() + "' WHERE idfiche =" + num_fiche.Text, BaseDeDonnee.mysql);
             mysqlCmd2.ExecuteReader();
-            bdd.Deconnection();
+            BaseDeDonnee.Deconnection();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bdd.Connection();
-            MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET type_enlevement = '" + comboBox1.SelectedIndex + "' WHERE idfiche =" + num_fiche.Text, bdd.mysql);
+            BaseDeDonnee.Connection();
+            MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET type_enlevement = '" + comboBox1.SelectedIndex + "' WHERE idfiche =" + num_fiche.Text, BaseDeDonnee.mysql);
             mysqlCmd2.ExecuteReader();
             dateTimePicker1.Value = DateTime.Today;
-            bdd.Deconnection();
+            BaseDeDonnee.Deconnection();
 
-            bdd.Connection();
-            mysqlCmd2 = new MySqlCommand("UPDATE fiche SET enlevement = '" + dateTimePicker1.Value.ToShortDateString().ToString() + "' WHERE idfiche =" + num_fiche.Text, bdd.mysql);
+            BaseDeDonnee.Connection();
+            mysqlCmd2 = new MySqlCommand("UPDATE fiche SET enlevement = '" + dateTimePicker1.Value.ToShortDateString().ToString() + "' WHERE idfiche =" + num_fiche.Text, BaseDeDonnee.mysql);
             mysqlCmd2.ExecuteReader();
-            bdd.Deconnection();
+            BaseDeDonnee.Deconnection();
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             if (DialogResult.Yes == MessageBox.Show("Voulez vous supprimer cette fiche ?", "Suppression d'une fiche", MessageBoxButtons.YesNo))
             {
-                bdd.Connection();
+                BaseDeDonnee.Connection();
                 MySqlCommand mysqlCmd2;
                 MySqlDataReader mysqlReader;
-                mysqlCmd2 = new MySqlCommand("DELETE FROM fiche WHERE idfiche = " + num_fiche.Text, bdd.mysql);
+                mysqlCmd2 = new MySqlCommand("DELETE FROM fiche WHERE idfiche = " + num_fiche.Text, BaseDeDonnee.mysql);
                 mysqlReader = mysqlCmd2.ExecuteReader();
 
                 mysqlReader.Read();
@@ -275,10 +286,10 @@ namespace FicheSAV
                 date_depot.Focus();
 
                 //requete de mise a jour du nom
-                bdd.Connection();
-                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE client SET nom = '" + nom.Text + "' WHERE idclient =" + idClient, bdd.mysql);
+                BaseDeDonnee.Connection();
+                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE client SET nom = '" + nom.Text + "' WHERE idclient =" + idClient, BaseDeDonnee.mysql);
                 mysqlCmd2.ExecuteReader();
-                bdd.Deconnection();
+                BaseDeDonnee.Deconnection();
             }
         }
     
@@ -293,10 +304,10 @@ namespace FicheSAV
                 date_depot.Focus();
                
                 //requete de mise a jour du tel
-                bdd.Connection();
-                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE client SET tel1 = '"+tel.Text+"' WHERE idclient ="+idClient, bdd.mysql);
+                BaseDeDonnee.Connection();
+                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE client SET tel1 = '"+tel.Text+"' WHERE idclient ="+idClient, BaseDeDonnee.mysql);
                 mysqlCmd2.ExecuteReader();
-                bdd.Deconnection();
+                BaseDeDonnee.Deconnection();
             }
         }
 
@@ -327,10 +338,10 @@ namespace FicheSAV
         {
             if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Tab)
             {
-                bdd.Connection();
-                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET travaux = '" + travauxE.Text + "' WHERE idfiche =" + num_fiche.Text, bdd.mysql);
+                BaseDeDonnee.Connection();
+                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET travaux = '" + travauxE.Text + "' WHERE idfiche =" + num_fiche.Text, BaseDeDonnee.mysql);
                 mysqlCmd2.ExecuteReader();
-                bdd.Deconnection();
+                BaseDeDonnee.Deconnection();
             }
         }
 
@@ -365,10 +376,10 @@ namespace FicheSAV
                 date_depot.Focus();
 
                 //requete de mise a jour du tel
-                bdd.Connection();
-                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE client SET tel2 = '" + tel2.Text + "' WHERE idclient =" + idClient, bdd.mysql);
+                BaseDeDonnee.Connection();
+                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE client SET tel2 = '" + tel2.Text + "' WHERE idclient =" + idClient, BaseDeDonnee.mysql);
                 mysqlCmd2.ExecuteReader();
-                bdd.Deconnection();
+                BaseDeDonnee.Deconnection();
             }
 
         }
@@ -404,10 +415,10 @@ namespace FicheSAV
                 date_depot.Focus();
 
                 //requete de mise a jour du tel
-                bdd.Connection();
-                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE client SET adresse = '" + adresse.Text + "' WHERE idclient =" + idClient, bdd.mysql);
+                BaseDeDonnee.Connection();
+                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE client SET adresse = '" + adresse.Text + "' WHERE idclient =" + idClient, BaseDeDonnee.mysql);
                 mysqlCmd2.ExecuteReader();
-                bdd.Deconnection();
+                BaseDeDonnee.Deconnection();
             }
         }
 
@@ -442,10 +453,10 @@ namespace FicheSAV
                 date_depot.Focus();
 
                 //requete de mise a jour du tel
-                bdd.Connection();
-                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE client SET cp = '" + codepostal.Text + "' WHERE idclient =" + idClient, bdd.mysql);
+                BaseDeDonnee.Connection();
+                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE client SET cp = '" + codepostal.Text + "' WHERE idclient =" + idClient, BaseDeDonnee.mysql);
                 mysqlCmd2.ExecuteReader();
-                bdd.Deconnection();
+                BaseDeDonnee.Deconnection();
             }
         }
 
@@ -480,10 +491,10 @@ namespace FicheSAV
                 date_depot.Focus();
 
                 //requete de mise a jour du tel
-                bdd.Connection();
-                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE client SET ville = '" + villec.Text + "' WHERE idclient =" + idClient, bdd.mysql);
+                BaseDeDonnee.Connection();
+                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE client SET ville = '" + villec.Text + "' WHERE idclient =" + idClient, BaseDeDonnee.mysql);
                 mysqlCmd2.ExecuteReader();
-                bdd.Deconnection();
+                BaseDeDonnee.Deconnection();
             }
         }
 
@@ -518,10 +529,10 @@ namespace FicheSAV
                 date_depot.Focus();
 
                 //requete de mise a jour du tel
-                bdd.Connection();
-                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET descriptif = '" + descriptif.Text.Replace("'", "''") + "' WHERE idfiche =" + num_fiche.Text, bdd.mysql);
+                BaseDeDonnee.Connection();
+                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET descriptif = '" + descriptif.Text.Replace("'", "''") + "' WHERE idfiche =" + num_fiche.Text, BaseDeDonnee.mysql);
                 mysqlCmd2.ExecuteReader();
-                bdd.Deconnection();
+                BaseDeDonnee.Deconnection();
             }
         }
 
@@ -556,10 +567,10 @@ namespace FicheSAV
                 date_depot.Focus();
 
                 //requete de mise a jour du tel
-                bdd.Connection();
-                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET accessoires = '" + accessoire.Text + "' WHERE idfiche =" + num_fiche.Text, bdd.mysql);
+                BaseDeDonnee.Connection();
+                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET accessoires = '" + accessoire.Text + "' WHERE idfiche =" + num_fiche.Text, BaseDeDonnee.mysql);
                 mysqlCmd2.ExecuteReader();
-                bdd.Deconnection();
+                BaseDeDonnee.Deconnection();
             }
         }
 
@@ -594,10 +605,10 @@ namespace FicheSAV
                 date_depot.Focus();
 
                 //requete de mise a jour du tel
-                bdd.Connection();
-                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET pass = '" + pass.Text + "' WHERE idfiche =" + num_fiche.Text, bdd.mysql);
+                BaseDeDonnee.Connection();
+                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET pass = '" + pass.Text + "' WHERE idfiche =" + num_fiche.Text, BaseDeDonnee.mysql);
                 mysqlCmd2.ExecuteReader();
-                bdd.Deconnection();
+                BaseDeDonnee.Deconnection();
             }
         } 
 
@@ -617,8 +628,8 @@ namespace FicheSAV
                 label7.Text = "attente pièces";
                 etat = 2;
 
-                bdd.Connection();
-                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET etat = '" + etat + "' WHERE idfiche =" + num_fiche.Text, bdd.mysql);
+                BaseDeDonnee.Connection();
+                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET etat = '" + etat + "' WHERE idfiche =" + num_fiche.Text, BaseDeDonnee.mysql);
                 mysqlCmd2.ExecuteReader();
             }
             else if (attente == 1)
@@ -626,8 +637,8 @@ namespace FicheSAV
                 label7.Text = "attente assurance";
                 etat = 3;
 
-                bdd.Connection();
-                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET etat = '" + etat + "' WHERE idfiche =" + num_fiche.Text, bdd.mysql);
+                BaseDeDonnee.Connection();
+                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET etat = '" + etat + "' WHERE idfiche =" + num_fiche.Text, BaseDeDonnee.mysql);
                 mysqlCmd2.ExecuteReader();
             }
             else if (attente == 2)
@@ -635,8 +646,8 @@ namespace FicheSAV
                 label7.Text = "attente client";
                 etat = 4;
 
-                bdd.Connection();
-                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET etat = '" + etat + "' WHERE idfiche =" + num_fiche.Text, bdd.mysql);
+                BaseDeDonnee.Connection();
+                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET etat = '" + etat + "' WHERE idfiche =" + num_fiche.Text, BaseDeDonnee.mysql);
                 mysqlCmd2.ExecuteReader();
             }
         }
@@ -649,8 +660,8 @@ namespace FicheSAV
             etat = 1;
 
 
-            bdd.Connection();
-            MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET etat = '" + etat + "' WHERE idfiche =" + num_fiche.Text, bdd.mysql);
+            BaseDeDonnee.Connection();
+            MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET etat = '" + etat + "' WHERE idfiche =" + num_fiche.Text, BaseDeDonnee.mysql);
             mysqlCmd2.ExecuteReader();
         }
 
@@ -664,8 +675,8 @@ namespace FicheSAV
             etat = 5;
 
 
-            bdd.Connection();
-            MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET etat = '" + etat + "' WHERE idfiche =" + num_fiche.Text, bdd.mysql);
+            BaseDeDonnee.Connection();
+            MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET etat = '" + etat + "' WHERE idfiche =" + num_fiche.Text, BaseDeDonnee.mysql);
             mysqlCmd2.ExecuteReader();
         }
 
@@ -679,8 +690,8 @@ namespace FicheSAV
             label10.BackColor = Color.Coral;
             etat = 6;
 
-            bdd.Connection();
-            MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET etat = '" + etat + "' WHERE idfiche =" + num_fiche.Text, bdd.mysql);
+            BaseDeDonnee.Connection();
+            MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET etat = '" + etat + "' WHERE idfiche =" + num_fiche.Text, BaseDeDonnee.mysql);
             mysqlCmd2.ExecuteReader();
         }
 

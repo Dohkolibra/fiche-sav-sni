@@ -32,8 +32,8 @@
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>2</ApplicationRevision>
-    <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
+    <ApplicationRevision>9</ApplicationRevision>
+    <ApplicationVersion>1.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -81,10 +81,6 @@
     <ApplicationIcon>Untitled4.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Fluent, Version=2.0.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Fluent.dll</HintPath>
-    </Reference>
     <Reference Include="Mysql.Data">
       <HintPath>.\Mysql.Data.dll</HintPath>
     </Reference>
@@ -122,11 +118,6 @@
     </Compile>
     <Compile Include="Fiche.cs" />
     <Compile Include="Impression.cs" />
-    <Compile Include="mafichesavDataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>mafichesavDataSet1.xsd</DependentUpon>
-    </Compile>
     <Compile Include="NouveauType.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,6 +142,12 @@
     <Compile Include="NouvelleMarque.Designer.cs">
       <DependentUpon>NouvelleMarque.cs</DependentUpon>
     </Compile>
+    <Compile Include="Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Options.Designer.cs">
+      <DependentUpon>Options.cs</DependentUpon>
+    </Compile>
     <Compile Include="Planning.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,11 +156,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="savDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>savDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="VueFiche.cs">
       <SubType>Form</SubType>
@@ -189,6 +181,9 @@
     <EmbeddedResource Include="NouvelOs.resx">
       <DependentUpon>NouvelOs.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Options.resx">
+      <DependentUpon>Options.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Planning.resx">
       <DependentUpon>Planning.cs</DependentUpon>
     </EmbeddedResource>
@@ -206,18 +201,6 @@
       <DependentUpon>VueFiche.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="FicheSAV_TemporaryKey.pfx" />
-    <None Include="mafichesavDataSet1.xsc">
-      <DependentUpon>mafichesavDataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="mafichesavDataSet1.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>mafichesavDataSet1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="mafichesavDataSet1.xss">
-      <DependentUpon>mafichesavDataSet1.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -227,17 +210,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="savDataSet.xsc">
-      <DependentUpon>savDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="savDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>savDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="savDataSet.xss">
-      <DependentUpon>savDataSet.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -265,11 +237,24 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="config.xml" />
     <Content Include="Resources\Logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\supprimer.png" />
     <Content Include="Untitled4.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="config.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

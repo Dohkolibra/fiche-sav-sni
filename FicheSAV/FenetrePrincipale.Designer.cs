@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FenetrePrincipale));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -37,15 +36,9 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.comboMatos = new System.Windows.Forms.ComboBox();
-            this.materielBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.mafichesavDataSet1 = new FicheSAV.mafichesavDataSet1();
             this.MarqueList = new System.Windows.Forms.ComboBox();
-            this.marqueBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.savDataSetBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.savDataSet = new FicheSAV.savDataSet();
             this.lOS = new System.Windows.Forms.Label();
             this.OSlist = new System.Windows.Forms.ComboBox();
-            this.osBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.descriptifBox = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.accessoiresBox = new System.Windows.Forms.TextBox();
@@ -123,39 +116,22 @@
             this.bquitter = new System.Windows.Forms.Button();
             this.menu = new System.Windows.Forms.MenuStrip();
             this.fichierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.préférencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.créerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nouvelleFicheToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.nouveauTypeDeMatérielToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nouvelleMarqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nouvelOsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nouvellePrioritéToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statistiquesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fichesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aProposDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.materielTableAdapter1 = new FicheSAV.mafichesavDataSet1TableAdapters.materielTableAdapter();
-            this.marqueTableAdapter = new FicheSAV.savDataSetTableAdapters.marqueTableAdapter();
-            this.osTableAdapter = new FicheSAV.savDataSetTableAdapters.osTableAdapter();
-            this.materielTableAdapter2 = new FicheSAV.mafichesavDataSet1TableAdapters.materielTableAdapter();
-            this.mafichesavDataSet11 = new FicheSAV.mafichesavDataSet1();
-            this.tableAdapterManager1 = new FicheSAV.mafichesavDataSet1TableAdapters.TableAdapterManager();
-            this.savDataSet1 = new FicheSAV.savDataSet();
-            this.marqueTableAdapter1 = new FicheSAV.savDataSetTableAdapters.marqueTableAdapter();
-            this.marqueTableAdapter2 = new FicheSAV.savDataSetTableAdapters.marqueTableAdapter();
-            this.osTableAdapter1 = new FicheSAV.savDataSetTableAdapters.osTableAdapter();
-            this.tableAdapterManager2 = new FicheSAV.savDataSetTableAdapters.TableAdapterManager();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.materielBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mafichesavDataSet1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.marqueBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.savDataSetBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.savDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.osBindingSource)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -168,8 +144,6 @@
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.menu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mafichesavDataSet11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.savDataSet1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -266,53 +240,22 @@
             // 
             // comboMatos
             // 
-            this.comboMatos.DataSource = this.materielBindingSource1;
-            this.comboMatos.DisplayMember = "nom_materiel";
             this.comboMatos.FormattingEnabled = true;
             this.comboMatos.Location = new System.Drawing.Point(108, 45);
             this.comboMatos.Name = "comboMatos";
             this.comboMatos.Size = new System.Drawing.Size(121, 21);
             this.comboMatos.TabIndex = 10;
-            this.comboMatos.ValueMember = "id_materiel";
-            // 
-            // materielBindingSource1
-            // 
-            this.materielBindingSource1.DataMember = "materiel";
-            this.materielBindingSource1.DataSource = this.mafichesavDataSet1;
-            // 
-            // mafichesavDataSet1
-            // 
-            this.mafichesavDataSet1.DataSetName = "mafichesavDataSet1";
-            this.mafichesavDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // MarqueList
             // 
             this.MarqueList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.MarqueList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.MarqueList.DataSource = this.marqueBindingSource;
-            this.MarqueList.DisplayMember = "nom_marque";
             this.MarqueList.FormattingEnabled = true;
             this.MarqueList.ItemHeight = 13;
             this.MarqueList.Location = new System.Drawing.Point(278, 46);
             this.MarqueList.Name = "MarqueList";
             this.MarqueList.Size = new System.Drawing.Size(112, 21);
             this.MarqueList.TabIndex = 11;
-            this.MarqueList.ValueMember = "idmarque";
-            // 
-            // marqueBindingSource
-            // 
-            this.marqueBindingSource.DataMember = "marque";
-            this.marqueBindingSource.DataSource = this.savDataSetBindingSource1;
-            // 
-            // savDataSetBindingSource1
-            // 
-            this.savDataSetBindingSource1.DataSource = this.savDataSet;
-            this.savDataSetBindingSource1.Position = 0;
-            // 
-            // savDataSet
-            // 
-            this.savDataSet.DataSetName = "savDataSet";
-            this.savDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // lOS
             // 
@@ -327,19 +270,11 @@
             // 
             this.OSlist.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.OSlist.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.OSlist.DataSource = this.osBindingSource;
-            this.OSlist.DisplayMember = "nom_os";
             this.OSlist.FormattingEnabled = true;
             this.OSlist.Location = new System.Drawing.Point(580, 45);
             this.OSlist.Name = "OSlist";
             this.OSlist.Size = new System.Drawing.Size(108, 21);
             this.OSlist.TabIndex = 13;
-            this.OSlist.ValueMember = "id_os";
-            // 
-            // osBindingSource
-            // 
-            this.osBindingSource.DataMember = "os";
-            this.osBindingSource.DataSource = this.savDataSetBindingSource1;
             // 
             // descriptifBox
             // 
@@ -1126,10 +1061,18 @@
             // fichierToolStripMenuItem
             // 
             this.fichierToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.préférencesToolStripMenuItem,
             this.quitterToolStripMenuItem});
             this.fichierToolStripMenuItem.Name = "fichierToolStripMenuItem";
             this.fichierToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.fichierToolStripMenuItem.Text = "Fichier";
+            // 
+            // préférencesToolStripMenuItem
+            // 
+            this.préférencesToolStripMenuItem.Name = "préférencesToolStripMenuItem";
+            this.préférencesToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.préférencesToolStripMenuItem.Text = "Préférences";
+            this.préférencesToolStripMenuItem.Click += new System.EventHandler(this.préférencesToolStripMenuItem_Click);
             // 
             // quitterToolStripMenuItem
             // 
@@ -1145,8 +1088,7 @@
             this.nouvelleFicheToolStripMenuItem1,
             this.nouveauTypeDeMatérielToolStripMenuItem,
             this.nouvelleMarqueToolStripMenuItem,
-            this.nouvelOsToolStripMenuItem,
-            this.nouvellePrioritéToolStripMenuItem});
+            this.nouvelOsToolStripMenuItem});
             this.créerToolStripMenuItem.Name = "créerToolStripMenuItem";
             this.créerToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.créerToolStripMenuItem.Text = "Créer";
@@ -1179,13 +1121,6 @@
             this.nouvelOsToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
             this.nouvelOsToolStripMenuItem.Text = "Nouvel OS";
             this.nouvelOsToolStripMenuItem.Click += new System.EventHandler(this.nouvelOsToolStripMenuItem_Click);
-            // 
-            // nouvellePrioritéToolStripMenuItem
-            // 
-            this.nouvellePrioritéToolStripMenuItem.Name = "nouvellePrioritéToolStripMenuItem";
-            this.nouvellePrioritéToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
-            this.nouvellePrioritéToolStripMenuItem.Text = "Nouvelle priorité";
-            this.nouvellePrioritéToolStripMenuItem.Click += new System.EventHandler(this.nouvellePrioritéToolStripMenuItem_Click);
             // 
             // statistiquesToolStripMenuItem
             // 
@@ -1231,57 +1166,6 @@
             this.helpToolStripMenuItem.Text = "A propos de";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
-            // materielTableAdapter1
-            // 
-            this.materielTableAdapter1.ClearBeforeFill = true;
-            // 
-            // marqueTableAdapter
-            // 
-            this.marqueTableAdapter.ClearBeforeFill = true;
-            // 
-            // osTableAdapter
-            // 
-            this.osTableAdapter.ClearBeforeFill = true;
-            // 
-            // materielTableAdapter2
-            // 
-            this.materielTableAdapter2.ClearBeforeFill = true;
-            // 
-            // mafichesavDataSet11
-            // 
-            this.mafichesavDataSet11.DataSetName = "mafichesavDataSet1";
-            this.mafichesavDataSet11.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tableAdapterManager1
-            // 
-            this.tableAdapterManager1.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager1.Connection = null;
-            this.tableAdapterManager1.UpdateOrder = FicheSAV.mafichesavDataSet1TableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
-            // savDataSet1
-            // 
-            this.savDataSet1.DataSetName = "savDataSet";
-            this.savDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // marqueTableAdapter1
-            // 
-            this.marqueTableAdapter1.ClearBeforeFill = true;
-            // 
-            // marqueTableAdapter2
-            // 
-            this.marqueTableAdapter2.ClearBeforeFill = true;
-            // 
-            // osTableAdapter1
-            // 
-            this.osTableAdapter1.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager2
-            // 
-            this.tableAdapterManager2.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager2.marqueTableAdapter = this.marqueTableAdapter;
-            this.tableAdapterManager2.osTableAdapter = this.osTableAdapter;
-            this.tableAdapterManager2.UpdateOrder = FicheSAV.savDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            // 
             // FenetrePrincipale
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1301,12 +1185,6 @@
             this.tabPage1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.materielBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mafichesavDataSet1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.marqueBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.savDataSetBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.savDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.osBindingSource)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -1325,8 +1203,6 @@
             this.tabPage6.ResumeLayout(false);
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mafichesavDataSet11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.savDataSet1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1394,22 +1270,12 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TextBox valeur_recherche;
-        private System.Windows.Forms.ToolStripMenuItem nouvellePrioritéToolStripMenuItem;
         private System.Windows.Forms.Button recherche;
         private System.Windows.Forms.ComboBox comboMatos;
-        private System.Windows.Forms.BindingSource materielBindingSource1;
-        private mafichesavDataSet1TableAdapters.materielTableAdapter materielTableAdapter1;
-        private mafichesavDataSet1 mafichesavDataSet1;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.Button sTerminee;
         private System.Windows.Forms.Button sAttente;
         private System.Windows.Forms.Button sAfaire;
-        private System.Windows.Forms.BindingSource savDataSetBindingSource1;
-        private savDataSet savDataSet;
-        private System.Windows.Forms.BindingSource marqueBindingSource;
-        private savDataSetTableAdapters.marqueTableAdapter marqueTableAdapter;
-        private System.Windows.Forms.BindingSource osBindingSource;
-        private savDataSetTableAdapters.osTableAdapter osTableAdapter;
         private System.Windows.Forms.Button sToutes;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
@@ -1418,14 +1284,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private mafichesavDataSet1TableAdapters.materielTableAdapter materielTableAdapter2;
-        private mafichesavDataSet1 mafichesavDataSet11;
-        private mafichesavDataSet1TableAdapters.TableAdapterManager tableAdapterManager1;
-        private savDataSet savDataSet1;
-        private savDataSetTableAdapters.marqueTableAdapter marqueTableAdapter1;
-        private savDataSetTableAdapters.marqueTableAdapter marqueTableAdapter2;
-        private savDataSetTableAdapters.osTableAdapter osTableAdapter1;
-        private savDataSetTableAdapters.TableAdapterManager tableAdapterManager2;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.ListBox listBox1;
@@ -1451,6 +1309,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button rcSupprimer;
         private System.Windows.Forms.Button rcValider;
+        private System.Windows.Forms.ToolStripMenuItem préférencesToolStripMenuItem;
     }
 }
 

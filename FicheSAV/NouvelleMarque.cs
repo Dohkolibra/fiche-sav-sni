@@ -12,7 +12,7 @@ namespace FicheSAV
 {
     public partial class NouvelleMarque : Form
     {
-        BaseDeDonnee bdd = new BaseDeDonnee();
+        //BaseDeDonnee bdd = new BaseDeDonnee();
         MySqlCommand mysqlCmd2;
         MySqlDataReader mysqlReader;
         string marque = "";
@@ -31,9 +31,9 @@ namespace FicheSAV
         private void verifier_Click(object sender, EventArgs e)
         {
             Boolean existe = false;
-            bdd.Connection();
+            BaseDeDonnee.Connection();
 
-            mysqlCmd2 = new MySqlCommand("SELECT * FROM marque", bdd.mysql);
+            mysqlCmd2 = new MySqlCommand("SELECT * FROM marque", BaseDeDonnee.mysql);
             mysqlReader = mysqlCmd2.ExecuteReader();
             while (mysqlReader.Read() && !existe)
             {
@@ -62,8 +62,8 @@ namespace FicheSAV
 
         private void oui_Click(object sender, EventArgs e)
         {
-            bdd.Connection();
-            mysqlCmd2 = new MySqlCommand("INSERT INTO marque VALUES('','" + marque.Replace("'", "''") + "')", bdd.mysql);
+            BaseDeDonnee.Connection();
+            mysqlCmd2 = new MySqlCommand("INSERT INTO marque VALUES('','" + marque.Replace("'", "''") + "')", BaseDeDonnee.mysql);
             mysqlCmd2.ExecuteReader();
             mysqlReader.Close();
             this.Close();

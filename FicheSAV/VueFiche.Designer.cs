@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VueFiche));
             this.label_numFiche = new System.Windows.Forms.Label();
             this.num_fiche = new System.Windows.Forms.Label();
@@ -45,6 +44,7 @@
             this.tel = new System.Windows.Forms.TextBox();
             this.nom = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.tbOS = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.pass = new System.Windows.Forms.TextBox();
@@ -69,17 +69,11 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.printButton = new System.Windows.Forms.Button();
             this.printPreviewDialog = new System.Windows.Forms.PrintPreviewDialog();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.savDataSet = new FicheSAV.savDataSet();
-            this.osBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.osTableAdapter = new FicheSAV.savDataSetTableAdapters.osTableAdapter();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.savDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.osBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label_numFiche
@@ -304,6 +298,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Informations sur le matériel";
             // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(85, 40);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(134, 21);
+            this.comboBox2.TabIndex = 25;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            // 
             // tbOS
             // 
             this.tbOS.BackColor = System.Drawing.SystemColors.Menu;
@@ -317,7 +320,6 @@
             this.tbOS.ReadOnly = true;
             this.tbOS.Size = new System.Drawing.Size(158, 20);
             this.tbOS.TabIndex = 24;
-            this.tbOS.Text = "système d\'exploitation";
             this.tbOS.MouseClick += new System.Windows.Forms.MouseEventHandler(this.textBox1_MouseClick);
             this.tbOS.MouseLeave += new System.EventHandler(this.tbOS_MouseLeave);
             this.tbOS.MouseHover += new System.EventHandler(this.tbOS_MouseHover);
@@ -595,32 +597,6 @@
             this.printPreviewDialog.Name = "printPreviewDialog";
             this.printPreviewDialog.Visible = false;
             // 
-            // comboBox2
-            // 
-            this.comboBox2.DataSource = this.osBindingSource;
-            this.comboBox2.DisplayMember = "nom_os";
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(85, 40);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(134, 21);
-            this.comboBox2.TabIndex = 25;
-            this.comboBox2.ValueMember = "nom_os";
-            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
-            // 
-            // savDataSet
-            // 
-            this.savDataSet.DataSetName = "savDataSet";
-            this.savDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // osBindingSource
-            // 
-            this.osBindingSource.DataMember = "os";
-            this.osBindingSource.DataSource = this.savDataSet;
-            // 
-            // osTableAdapter
-            // 
-            this.osTableAdapter.ClearBeforeFill = true;
-            // 
             // VueFiche
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -652,7 +628,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "VueFiche";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VueFiche_FormClosing);
-            this.Load += new System.EventHandler(this.VueFiche_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -661,8 +636,6 @@
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.savDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.osBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -709,9 +682,6 @@
         private System.Windows.Forms.TextBox accessoire;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox tbOS;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private savDataSet savDataSet;
-        private System.Windows.Forms.BindingSource osBindingSource;
-        private savDataSetTableAdapters.osTableAdapter osTableAdapter;
+        public System.Windows.Forms.ComboBox comboBox2;
     }
 }

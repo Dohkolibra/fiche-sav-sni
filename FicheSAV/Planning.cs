@@ -17,30 +17,30 @@ namespace FicheSAV
         public Planning()
         {
             InitializeComponent();
-            BaseDeDonnee bdd = new BaseDeDonnee();
-            bdd.Connection();
+            //BaseDeDonnee bdd = new BaseDeDonnee();
+            BaseDeDonnee.Connection();
 
-            MySqlCommand mysqlCmd2 = new MySqlCommand("SELECT * FROM fiche WHERE etat = '1' OR etat = '2' OR etat = '3' OR etat = '4' ", bdd.mysql);
+            MySqlCommand mysqlCmd2 = new MySqlCommand("SELECT * FROM fiche WHERE etat = '1' OR etat = '2' OR etat = '3' OR etat = '4' ", BaseDeDonnee.mysql);
             MySqlDataReader mysqlReader = mysqlCmd2.ExecuteReader();
             int nombre = 0;
 
             while (mysqlReader.Read())
             {
-                BaseDeDonnee bdd2 = new BaseDeDonnee();
-                bdd2.Connection();
-                MySqlCommand mysqlCmd3 = new MySqlCommand("SELECT nom FROM client WHERE idclient =" + mysqlReader.GetString("idclient") , bdd2.mysql);
+                //BaseDeDonnee bdd2 = new BaseDeDonnee();
+                BaseDeDonnee.Connection();
+                MySqlCommand mysqlCmd3 = new MySqlCommand("SELECT nom FROM client WHERE idclient =" + mysqlReader.GetString("idclient"), BaseDeDonnee.mysql);
                 MySqlDataReader mysqlReader2 = mysqlCmd3.ExecuteReader();
                 mysqlReader2.Read();
                 string nom = mysqlReader2.GetString("nom");
                 mysqlReader2.Close();
 
-                mysqlCmd3 = new MySqlCommand("SELECT nom_materiel FROM materiel WHERE id_materiel =" + mysqlReader.GetString("type_materiel"), bdd2.mysql);
+                mysqlCmd3 = new MySqlCommand("SELECT nom_materiel FROM materiel WHERE id_materiel =" + mysqlReader.GetString("type_materiel"), BaseDeDonnee.mysql);
                 mysqlReader2 = mysqlCmd3.ExecuteReader();
                 mysqlReader2.Read();
                 string type = mysqlReader2.GetString("nom_materiel");
                 mysqlReader2.Close();
 
-                mysqlCmd3 = new MySqlCommand("SELECT nom_marque FROM marque WHERE idmarque =" + mysqlReader.GetString("marque"), bdd2.mysql);
+                mysqlCmd3 = new MySqlCommand("SELECT nom_marque FROM marque WHERE idmarque =" + mysqlReader.GetString("marque"), BaseDeDonnee.mysql);
                 mysqlReader2 = mysqlCmd3.ExecuteReader();
                 mysqlReader2.Read();
                 string marque = mysqlReader2.GetString("nom_marque");
@@ -81,7 +81,7 @@ namespace FicheSAV
 
             mysqlReader.Close();
 
-            bdd.mysql.Close();
+            BaseDeDonnee.mysql.Close();
         }
 
 

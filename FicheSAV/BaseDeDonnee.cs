@@ -7,13 +7,31 @@ using System.Windows.Forms;
 
 namespace FicheSAV
 {
-    class BaseDeDonnee
+    public static class BaseDeDonnee
     {
-        public MySqlConnection mysql;
+        public static MySqlConnection mysql;
+        static string Ip;
 
-        public void Connection()
+        public static void Connection()
         {
-            mysql = new MySqlConnection("datasource=192.168.1.15;username=root;password='';database=SAV");
+            if(Ip == null)
+                Ip = "127.0.0.1";
+
+            mysql = new MySqlConnection("datasource=" + Ip + ";username=root;password='';database=sav");
+            try
+            {
+                mysql.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Impossible de se connecter au serveur "+Ip +"\n" + "Code erreur : " + ex.Message);
+            }
+        }
+
+
+        public static void Connection(string Ip)
+        {
+            mysql = new MySqlConnection("datasource="+ Ip +";username=root;password='';database=SAV");
             try
             {
                 mysql.Open();
@@ -25,12 +43,17 @@ namespace FicheSAV
         }
 
 
-        public void Deconnection()
+        public static void Deconnection()
         {
             mysql.Dispose();
             mysql.Close();
         }
 
+        public static string AdIp
+        {
+            get { return Ip; }
+            set { Ip = value; }
+        }
 
     }
 }

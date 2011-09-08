@@ -12,7 +12,7 @@ namespace FicheSAV
 {
     public partial class NouveauType : Form
     {
-        BaseDeDonnee bdd = new BaseDeDonnee();
+        //BaseDeDonnee bdd = new BaseDeDonnee();
         MySqlCommand mysqlCmd2;
         MySqlDataReader mysqlReader;
         string os = "";
@@ -30,9 +30,9 @@ namespace FicheSAV
         private void verifier_Click(object sender, EventArgs e)
         {
             Boolean existe = false;
-            bdd.Connection();
+            BaseDeDonnee.Connection();
 
-            mysqlCmd2 = new MySqlCommand("SELECT * FROM materiel", bdd.mysql);
+            mysqlCmd2 = new MySqlCommand("SELECT * FROM materiel", BaseDeDonnee.mysql);
             mysqlReader = mysqlCmd2.ExecuteReader();
 
             while (mysqlReader.Read() && !existe)
@@ -62,9 +62,9 @@ namespace FicheSAV
 
         private void oui_Click(object sender, EventArgs e)
         {
-            bdd.Connection();
+            BaseDeDonnee.Connection();
 
-            mysqlCmd2 = new MySqlCommand("INSERT INTO materiel VALUES('','" + os.Replace("'", "''") + "')", bdd.mysql);
+            mysqlCmd2 = new MySqlCommand("INSERT INTO materiel VALUES('','" + os.Replace("'", "''") + "')", BaseDeDonnee.mysql);
             mysqlCmd2.ExecuteReader();
             mysqlReader.Close();
             this.Close();
