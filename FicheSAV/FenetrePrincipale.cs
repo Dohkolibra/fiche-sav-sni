@@ -24,8 +24,8 @@ namespace FicheSAV
         MySqlDataReader mysqlReader;
         Random rndNumbers = new Random();
         VueFiche vf;
+        Options options;
         Boolean clientExiste;
-        //BaseDeDonnee bdd = new BaseDeDonnee();
         Fiche fiche = null;
         int idClientRecherche;
         string numFiche;
@@ -60,18 +60,17 @@ namespace FicheSAV
         public FenetrePrincipale()
         {
             InitializeComponent();
-            
             InitIpServeur();
+
             vf = new VueFiche();
-            //BaseDeDonnee.Connection();
+
             RemplirComboBox();
             ResetCreationFiche();        
             //planning = new Planning();
             //planning.Show();
             dateBox.Focus();
-            //BaseDeDonnee.Deconnection();
-        }
 
+        }
 
         #region ----- FONCTIONS UTILES -----
 
@@ -101,7 +100,6 @@ namespace FicheSAV
             MaterielDataAdapter = new MySqlDataAdapter("select * from materiel", BaseDeDonnee.mysql);
             materielDataSet = new DataSet("materiel");
             MaterielDataAdapter.Fill(materielDataSet, "materiel");
-            //this.comboMatos.DataBindings.Add("SelectedItem", materielDataSet.Tables["materiel"], "Materiel");
             this.comboMatos.DataSource = materielDataSet.Tables["materiel"];
             this.comboMatos.ValueMember = "id_materiel";
             this.comboMatos.DisplayMember = "nom_materiel";
@@ -109,7 +107,6 @@ namespace FicheSAV
             MarqueDataAdapter = new MySqlDataAdapter("select * from marque", BaseDeDonnee.mysql);
             MarqueDataSet = new DataSet("marque");
             MarqueDataAdapter.Fill(MarqueDataSet, "marque");
-            //this.MarqueList.DataBindings.Add("SelectedItem", MarqueDataSet.Tables["marque"], "Marque");
             this.MarqueList.DataSource = MarqueDataSet.Tables["marque"];
             this.MarqueList.ValueMember = "idmarque";
             this.MarqueList.DisplayMember = "nom_marque";
@@ -117,7 +114,6 @@ namespace FicheSAV
             OSDataAdapter = new MySqlDataAdapter("select * from os", BaseDeDonnee.mysql);
             OSDataSet = new DataSet("os");
             OSDataAdapter.Fill(OSDataSet, "os");
-            //this.OSlist.DataBindings.Add("SelectedItem", OSDataSet.Tables["os"], "Os");
             this.OSlist.DataSource = OSDataSet.Tables["os"];
             this.OSlist.ValueMember = "id_os";
             this.OSlist.DisplayMember = "nom_os";
@@ -128,7 +124,6 @@ namespace FicheSAV
         /* Click sur le boutton Quitter l'application */
         private void quitter_Click(object sender, EventArgs e)
         {
-            //mysqlReader.Close();
             BaseDeDonnee.Deconnection();
             Environment.Exit(0);
         }
@@ -210,8 +205,6 @@ namespace FicheSAV
                 fiche.numFiche = dataGridView1.CurrentRow.Cells[1].Value.ToString(); ;
 
                 //requete pour avoir les données dans la table fiche ***************************
-                //mysqlCmd2 = new MySqlCommand("SELECT * FROM fiche WHERE idfiche =" + fiche.numFiche, BaseDeDonnee.mysql);
-
                 string maRequete = "SELECT * FROM fiche WHERE idfiche = @id_fiche";
                 mysqlCmd2 = new MySqlCommand(maRequete, BaseDeDonnee.mysql);
                 mysqlCmd2.Parameters.Add(new MySqlParameter("@id_fiche", MySqlDbType.Int32));
@@ -253,8 +246,6 @@ namespace FicheSAV
                 mysqlReader.Close();
 
                 //recupere la marque
-                //mysqlCmd2 = new MySqlCommand("SELECT * FROM marque WHERE idmarque =" + fiche.materiel.marque, BaseDeDonnee.mysql);
-
                 maRequete = "SELECT * FROM marque WHERE idmarque = @id_marque";
                 mysqlCmd2 = new MySqlCommand(maRequete, BaseDeDonnee.mysql);
                 mysqlCmd2.Parameters.Add(new MySqlParameter("@id_marque", MySqlDbType.String));
@@ -266,8 +257,6 @@ namespace FicheSAV
                 mysqlReader.Close();
 
                 //recupere le type de matériel
-                //mysqlCmd2 = new MySqlCommand("SELECT * FROM materiel WHERE id_materiel =" + fiche.materiel.type, BaseDeDonnee.mysql);
-
                 maRequete = "SELECT * FROM materiel WHERE id_materiel = @id_materiel";
                 mysqlCmd2 = new MySqlCommand(maRequete, BaseDeDonnee.mysql);
                 mysqlCmd2.Parameters.Add(new MySqlParameter("@id_materiel", MySqlDbType.String));
@@ -277,7 +266,6 @@ namespace FicheSAV
                 mysqlReader.Read();
                 fiche.materiel.type = mysqlReader.GetString("nom_materiel");
                 mysqlReader.Close();
-
 
                 vf.setData(fiche, ref dataGridView1, dataGridView1.CurrentRow);
                 vf.Show();
@@ -315,36 +303,25 @@ namespace FicheSAV
             if (!new_client && nomClient != "")
             {
                 //verificiation de l'id client si il existe
-                //mysqlCmd2 = new MySqlCommand("SELECT * FROM client WHERE nom ='" + nomClient.Replace("'", "''") + "' LIMIT 1", BaseDeDonnee.mysql);
-
                 string requete = "SELECT * FROM client WHERE nom = @nom_client LIMIT 1";
                 mysqlCmd2 = new MySqlCommand(requete, BaseDeDonnee.mysql);
                 mysqlCmd2.Parameters.Add(new MySqlParameter("@nom_client", MySqlDbType.String));
                 mysqlCmd2.Parameters["@nom_client"].Value = nomClient.Replace("'", "''");
-
                 mysqlReader = mysqlCmd2.ExecuteReader();
                 mysqlReader.Read();
                 id = mysqlReader.GetInt32("idclient");
-                mysqlReader.Close();
-
-                //mysqlCmd2 = new MySqlCommand("INSERT INTO fiche VALUES('','" + date + "','" + pass + "','" + type + "','" + modele + "','" + marque + "','" + accessoire + "','" + desc.Replace("'", "''") + "','" + id + "','/','/','"+ date +"','/','/','" + 1 + "','" + num_prio + "','" + num_os + "','" + "','" + "-1')", BaseDeDonnee.mysql);
-                
+                mysqlReader.Close();                
             }
             else//sinon creer le client
             {
                 mysqlCmd2 = new MySqlCommand("INSERT INTO client VALUES('','" + nomClient.Replace("'", "''") + "','" + adresse.Replace("'", "''") + "','" + cp + "','" + ville.Replace("'", "''") + "','" + tel1 + "','" + tel2 + "','" + mail + "')", BaseDeDonnee.mysql);
                 mysqlReader = mysqlCmd2.ExecuteReader();
                 mysqlReader.Close();
-
                 mysqlCmd2 = new MySqlCommand("SELECT idclient FROM client WHERE nom = '" + nomClient + "'", BaseDeDonnee.mysql);
                 mysqlReader = mysqlCmd2.ExecuteReader();
                 mysqlReader.Read();
                 id = mysqlReader.GetInt32("idclient");
-                mysqlReader.Close();
-
-           /*     mysqlCmd2 = new MySqlCommand("INSERT INTO fiche VALUES('','" + date + "','" + pass + "','" + type + "','" + modele + "','" + marque + "','" + accessoire + "','" + desc.Replace("'", "''") + "','" + id + "','/','/','" + date + "','/','/','" + 1 + "','" + num_prio + "','" + num_os + "','" + "','" + "-1')", BaseDeDonnee.mysql);
-                mysqlCmd2.ExecuteNonQuery();*/
-                
+                mysqlReader.Close();                
             }
 
             string maRequete = "INSERT INTO fiche VALUES(@idfiche, @date, @pass, @type, @modele, @marque, @accessoire, @desc, @id, '@appel', '@pret', @date, '@facture', '@accord', 1, @num_prio, @num_os, @travaux ,-1)";
@@ -374,7 +351,7 @@ namespace FicheSAV
             mysqlCmd2.Parameters["@modele"].Value = modele;
             mysqlCmd2.Parameters["@marque"].Value = marque;
             mysqlCmd2.Parameters["@accessoire"].Value = accessoire;
-            mysqlCmd2.Parameters["@desc"].Value = desc.Replace("'", "''");
+            mysqlCmd2.Parameters["@desc"].Value = desc;
             mysqlCmd2.Parameters["@id"].Value = id;
             mysqlCmd2.Parameters["@appel"].Value = "";
             mysqlCmd2.Parameters["@pret"].Value = "";
@@ -711,7 +688,7 @@ namespace FicheSAV
         /* Click sur le menu Préférences */
         private void préférencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Options options = new Options();
+            options = new Options();
             options.ShowDialog();
             InitIpServeur();
 
@@ -745,7 +722,6 @@ namespace FicheSAV
             vf.comboBox2.Refresh();
             OSlist.Refresh();
 
-
             ResetCreationFiche();
         }
 
@@ -765,8 +741,6 @@ namespace FicheSAV
             NouvelleMarque ajoutMarque = new NouvelleMarque();
             ajoutMarque.FormClosed += new FormClosedEventHandler(ajoutMarque_FormClosed);
             ajoutMarque.ShowDialog(this);
-            
-            
         }
 
         private void ajoutMarque_FormClosed(object sender, EventArgs e)

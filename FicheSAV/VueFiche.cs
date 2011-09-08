@@ -163,7 +163,6 @@ namespace FicheSAV
             comboBox2.Hide();
         }
 
-
         #region EVENEMENTS MODIFICATION DONNEES
 
         private void textBox1_MouseClick(object sender, MouseEventArgs e)
@@ -336,11 +335,21 @@ namespace FicheSAV
 
         private void travauxE_KeyDown(object sender, KeyEventArgs e)
         {
+            MySqlCommand mysqlCmd2;
+            MySqlDataReader mysqlReader;
+
             if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Tab)
             {
                 BaseDeDonnee.Connection();
-                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET travaux = '" + travauxE.Text + "' WHERE idfiche =" + num_fiche.Text, BaseDeDonnee.mysql);
-                mysqlCmd2.ExecuteReader();
+
+                string requete = "UPDATE fiche SET travaux = @travaux WHERE idfiche = @num_fiche";
+                mysqlCmd2 = new MySqlCommand(requete, BaseDeDonnee.mysql);
+                mysqlCmd2.Parameters.Add(new MySqlParameter("@travaux", MySqlDbType.String));
+                mysqlCmd2.Parameters["@travaux"].Value = travauxE.Text;
+                mysqlCmd2.Parameters.Add(new MySqlParameter("@num_fiche", MySqlDbType.String));
+                mysqlCmd2.Parameters["@num_fiche"].Value = num_fiche.Text;
+                mysqlReader = mysqlCmd2.ExecuteReader();
+
                 BaseDeDonnee.Deconnection();
             }
         }
@@ -521,6 +530,9 @@ namespace FicheSAV
 
         private void descriptif_KeyDown(object sender, KeyEventArgs e)
         {
+            MySqlCommand mysqlCmd2;
+            MySqlDataReader mysqlReader;
+
             if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Tab)
             {
                 descriptif.ReadOnly = true;
@@ -528,10 +540,14 @@ namespace FicheSAV
                 descriptif.BorderStyle = BorderStyle.None;
                 date_depot.Focus();
 
-                //requete de mise a jour du tel
                 BaseDeDonnee.Connection();
-                MySqlCommand mysqlCmd2 = new MySqlCommand("UPDATE fiche SET descriptif = '" + descriptif.Text.Replace("'", "''") + "' WHERE idfiche =" + num_fiche.Text, BaseDeDonnee.mysql);
-                mysqlCmd2.ExecuteReader();
+                string requete = "UPDATE fiche SET descriptif = @panne WHERE idfiche = @num_fiche";
+                mysqlCmd2 = new MySqlCommand(requete, BaseDeDonnee.mysql);
+                mysqlCmd2.Parameters.Add(new MySqlParameter("@panne", MySqlDbType.String));
+                mysqlCmd2.Parameters["@panne"].Value = descriptif.Text;
+                mysqlCmd2.Parameters.Add(new MySqlParameter("@num_fiche", MySqlDbType.String));
+                mysqlCmd2.Parameters["@num_fiche"].Value = num_fiche.Text;
+                mysqlReader = mysqlCmd2.ExecuteReader();
                 BaseDeDonnee.Deconnection();
             }
         }
